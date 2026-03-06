@@ -1,0 +1,21 @@
+{
+  "name": "earnx-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "firebase": "^10.7.0",
+    "vite": "^5.0.0"           // ⭐ Vite को dependencies में डालो
+  },
+  "devDependencies": {
+    // Optional: अगर चाहो तो devDependencies में भी रख सकते हो
+  },
+  "engines": {
+    "node": "20.x"              // ⭐ Node version specify करो
+  }
+}
