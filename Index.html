@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Ad Test</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 20px; }
+        .btn { 
+            background: #4CAF50; color: white; border: none;
+            padding: 15px 40px; font-size: 18px; border-radius: 10px;
+            cursor: pointer; width: 100%; margin: 10px 0;
+        }
+        .status { margin: 20px; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h2>📺 Ad Test Page</h2>
+    
+    <div class="status" id="status">
+        ⏳ Loading...
+    </div>
+    
+    <!-- Your Ad Script -->
+    <script src="https://pl28854886.effectivegatecpm.com/34/7d/c9/347dc9e560d21cd1af1bb2a05b3f3316.js"></script>
+    
+    <button class="btn" onclick="sendData()" id="claimBtn">
+        ✅ Claim Points
+    </button>
+    
+    <script>
+        const tg = Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        
+        // Check if Telegram WebApp is working
+        console.log('Telegram WebApp:', tg);
+        document.getElementById('status').innerHTML = '✅ Telegram WebApp Connected';
+        
+        function sendData() {
+            tg.sendData(JSON.stringify({
+                action: 'viewed',
+                time: Date.now()
+            }));
+            document.getElementById('status').innerHTML = '✅ Points Claimed!';
+            document.getElementById('claimBtn').disabled = true;
+        }
+        
+        // Ad script load hone ka wait karo
+        setTimeout(() => {
+            document.getElementById('status').innerHTML = '✅ Ad Ready - Click button!';
+        }, 3000);
+    </script>
+</body>
+</html>
