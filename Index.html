@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EarnX - Watch Ads & Earn</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .logo { font-size: 48px; font-weight: bold; color: #ffd700; }
+        .balance {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .points { font-size: 64px; font-weight: bold; color: #ffd700; }
+        .btn {
+            background: #ffd700;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .footer { text-align: center; margin-top: 30px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">EarnX</div>
+            <p>Watch Ads & Earn Money</p>
+        </div>
+        
+        <div class="balance">
+            <div>Your Balance</div>
+            <div class="points" id="points">0</div>
+            <div id="inr">₹0.00</div>
+        </div>
+        
+        <button class="btn" onclick="watchAd()">
+            📺 Watch Ad & Earn 10 Points
+        </button>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div id="todayAds">0</div>
+                <small>Today</small>
+            </div>
+            <div class="stat-card">
+                <div id="totalAds">0</div>
+                <small>Total</small>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Withdrawal Coming Soon: 1000 Points = ₹10</p>
+            <p>Daily Login Bonus: +10 Points</p>
+        </div>
+    </div>
+    
+    <script>
+        const ADSTERRA_URL = "https://www.effectivegatecpm.com/ebfsrhtwn3?key=641705b4c31d6dae463a86bf896e7792";
+        const POINTS_PER_AD = 10;
+        
+        // Simple localStorage database (temporary)
+        let userData = JSON.parse(localStorage.getItem('userData')) || {
+            points: 0,
+            totalAds: 0,
+            todayAds: 0,
+            lastLogin: null
+        };
+        
+        function updateUI() {
+            document.getElementById('points').textContent = userData.points;
+            document.getElementById('todayAds').textContent = userData.todayAds;
+            document.getElementById('totalAds').textContent = userData.totalAds;
+            document.getElementById('inr').textContent = `₹${(userData.points / 100).toFixed(2)}`;
+            
+            localStorage.setItem('userData', JSON.stringify(userData));
+        }
+        
+        function watchAd() {
+            window.open(ADSTERRA_URL, '_blank');
+            
+            setTimeout(() => {
+                userData.points += POINTS_PER_AD;
+                userData.totalAds += 1;
+                userData.todayAds += 1;
+                updateUI();
+                alert(`✅ +${POINTS_PER_AD} points earned!`);
+            }, 5000);
+        }
+        
+        // Daily login bonus
+        const today = new Date().toDateString();
+        if (userData.lastLogin !== today) {
+            userData.points += 10;
+            userData.lastLogin = today;
+            alert('🎁 Daily login bonus: +10 points!');
+        }
+        
+        updateUI();
+    </script>
+</body>
+</html>
